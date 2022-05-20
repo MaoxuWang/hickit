@@ -1,0 +1,37 @@
+\documentclass[10pt]{article}
+
+\usepackage{amsmath}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\begin{document}
+
+For two constrained particles at coordinates $\vec{x}_1$ and $\vec{x}_2$,
+respectively, let
+$$\vec{r}=\vec{x}_1-\vec{x}_2$$
+$$r=\norm{\vec{r}}=\sqrt{r_1^2+r_2^2+r_3^2}$$
+$$\hat{r}=\nabla r=\vec{r}/r$$
+
+The general form of potential energy $U(r)$ between the two particles is
+\begin{equation*}
+U(r)=\left\{\begin{array}{ll}
+k(d_1-r)^2 & (r < d_1) \\
+0 & (d_1\le r\le d_2) \\
+k(r-d_2)^2 & (d_2 < r \le d_3) \\
+k[c_1(r-d_3) + c_2/(r-d_2)] & (r > d_3)
+\end{array}\right.
+\end{equation*}
+The force between the two particles is $\vec{F}(\vec{r})=\nabla
+U(r)=U'(r)\cdot\nabla r$, which is
+\[
+\vec{F}(\vec{r})=\left\{\begin{array}{ll}
+-2k(d_1-r)\cdot\hat{r} & (r < d_1) \\
+0 & (d_1\le r\le d_2) \\
+2k(r-d_2)\cdot\hat{r} & (d_2 < r \le d_3) \\
+k[c_1-c_2/(r-d_2)^2]\cdot\hat{r} & (r > d_3)
+\end{array}\right.
+\]
+To find $c_1$ and $c_2$, we require $U(r)$ and $U'(r)$ continuous at
+$r=d_3$. This gives $c_1=3(d_3-d_2)$ and $c_2=(d_3-d_2)^3$. Note that $U''(r)$
+is also continuous at $r=d_3$.
+
+\end{document}
