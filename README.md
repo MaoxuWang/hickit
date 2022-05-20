@@ -7,3 +7,10 @@ hickit –i ${id}.contacts.seg.gz -o - | gzip > ${id}.contacts.pairs.gz
 ```
 
 <img src="doc/function_explain.png" width=70%>
+
+## Files changed
+- hickit.h
+- io.c
+- pair.c
+
+Changes are marked.
