@@ -92,6 +92,7 @@ struct hk_pair *hk_seg2pair(int32_t n_segs, const struct hk_seg *segs, int min_d
 					memset(p, 0, sizeof(struct hk_pair));
 					if (t->chr < s->chr || (t->chr == s->chr && t->en < s->st)) {
 						strcpy(p->frag_name, t->frag_name); // added by maoxu; output cellbarcode 
+
 						p->chr = (uint64_t)t->chr << 32 | s->chr;
 						p->pos = (uint64_t)t->en  << 32 | s->st;
 						p->phase[0]  = t->phase,  p->phase[1]  = s->phase;
@@ -132,10 +133,14 @@ int32_t hk_pair_dedup(int n_pairs, struct hk_pair *pairs, int min_dist)
 		for (j = n - 1; j >= 0; --j) {
 			struct hk_pair *p = &pairs[j];
 			int32_t d;
+
 			if (p->chr != q->chr || hk_ppos1(q) - hk_ppos1(p) >= min_dist)
 				break;
+			
+			if (strcmp(p->frag_name, q->frag_name)) // Modified by Maoxu 
+				continue;
 			d = hk_ppos2(q) - hk_ppos2(p);
-			if (d < min_dist && d > -min_dist && q->strand[0] == p->strand[0] && q->strand[1] == p->strand[1]) {
+			if (d < min_dist && d > -min_dist && q->strand[0] == p->strand[0] && q->strand[1] == p->strand[1]) { 
 				to_skip = 1;
 				// merge phase info of pair i (namely, q) into pair j (namely, p)
 				for (k = 0; k < 2; ++k) {

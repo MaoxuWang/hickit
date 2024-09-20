@@ -124,6 +124,8 @@ static void hk_parse_pair(struct hk_pair *p, struct hk_sdict *d, int n_extra_col
 	p2 = hk_parse_64(fields[4], &q, &has_digit);
 	assert(p2 >= 0 && has_digit);
 	memset(p, 0, sizeof(struct hk_pair));
+	strcpy(p->frag_name, strtok(fields[0], ":")); // added by maoxu
+
 	p->chr = (uint64_t)c1 << 32 | c2;
 	p->pos = (uint64_t)p1 << 32 | p2;
 	p->phase[0] = p->phase[1] = -1;
